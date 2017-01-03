@@ -2,10 +2,28 @@
 
 - name: Manage Ruby environment
   hosts: all
-  become: True
+  become: True  
+  vars:
+    repo_url: git://github.com/gpolyn/twilio-ruby-demo.git
+    web_app_version: 6e93c6f527afebf7c67271114fbff4540ab8ea47
+    proj_name: twilio-ruby-demo
 
   roles:
-
+    - { role: crushlovely.deploy-user }
     - {role: geerlingguy.ruby, ruby_install_bundler: true, ruby_install_from_source: true, ruby_download_url: 'http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.3.tar.gz', ruby_version: 2.3.3 }
 
+  tasks:
+    - name: debugging
+      debug: var=proj_name
+    - name: Copy the code from the repository
+      git: repo={{ repo_url }} version={{ web_app_version }} dest=/srv/{{ proj_name }} accept_hostkey=yes
+    - file:
+        path: /srv/{{proj_name}}
+        state: directory
+        mode: "777"
+    - name: Install gems from Gemfile in the current directory
+      become: True
+      become_user: deploy
+      bundler: chdir=/srv/{{ proj_name }} 
+      
 
