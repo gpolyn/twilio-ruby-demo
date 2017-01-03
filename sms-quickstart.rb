@@ -4,11 +4,8 @@ require 'sinatra'
 
 get '/sms-quickstart' do
   sender = params[:From]
-  friends = {
-    "+12067785747" => "Curious George",
-    "+14158157775" => "Boots",
-    "+14155551234" => "Virgil"
-  }
+  friends = {}
+  friends[ENV['MY_FRIENDS_NUMBER']] = "Curious George"
   name = friends[sender] || "Mobile Monkey"
   twiml = Twilio::TwiML::Response.new do |r|
     r.Message "Hello, #{name}. Thanks for the message."
