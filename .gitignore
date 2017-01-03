@@ -8,5 +8,5 @@
 /pkg
 /doc/api
 /Gemfile.lock
-/ansible2.0
-
+ansible2.0
+.vagrant
