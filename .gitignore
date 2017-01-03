@@ -9,4 +9,5 @@
 /doc/api
 /Gemfile.lock
 /ansible2.0
+.vagrant
 
