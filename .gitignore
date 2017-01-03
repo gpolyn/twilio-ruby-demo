@@ -5,6 +5,7 @@
 *.swp
 *.rbc
 *.sass-cache
+*.retry
 /pkg
 /doc/api
 /Gemfile.lock
